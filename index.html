@@ -632,7 +632,7 @@
     
     <!-- Men's Category Page -->
     <div class="category-page" id="mens-page">
-        <div class="back-btn" id="back-btn">
+        <div class="back-btn" id="back-btn-mens">
             <i class="fas fa-arrow-left"></i>
         </div>
         
@@ -840,8 +840,8 @@
                 productCard.className = 'product-card';
                 productCard.dataset.id = product.id;
                 
-                // Format price as Indian Rupees
-                const formattedPrice = ₹${product.price};
+                // Format price as Indian Rupees - FIXED: Use proper string concatenation
+                const formattedPrice = '₹' + product.price;
                 
                 productCard.innerHTML = `
                     <img src="${product.image}" alt="${product.name}" class="product-img">
@@ -912,7 +912,7 @@
             // Update cart count badge
             const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
             document.getElementById('cart-count').textContent = totalItems;
-            document.getElementById('cart-total-items').textContent = ${totalItems} ${totalItems === 1 ? 'item' : 'items'};
+            document.getElementById('cart-total-items').textContent = totalItems + ' ' + (totalItems === 1 ? 'item' : 'items');
             
             // Render cart items
             const cartItemsEl = document.getElementById('cart-items');
@@ -938,8 +938,8 @@
                 const itemTotal = item.price * item.quantity;
                 subtotal += itemTotal;
                 
-                const formattedPrice = ₹${item.price};
-                const formattedTotal = ₹${item.price * item.quantity};
+                const formattedPrice = '₹' + item.price;
+                const formattedTotal = '₹' + (item.price * item.quantity);
                 
                 const cartItem = document.createElement('div');
                 cartItem.className = 'cart-item';
@@ -968,9 +968,9 @@
             const total = subtotal + tax;
             
             // Update summary
-            document.getElementById('cart-subtotal').textContent = ₹${subtotal};
-            document.getElementById('cart-tax').textContent = ₹${Math.round(tax)};
-            document.getElementById('cart-total').textContent = ₹${Math.round(total)};
+            document.getElementById('cart-subtotal').textContent = '₹' + subtotal;
+            document.getElementById('cart-tax').textContent = '₹' + Math.round(tax);
+            document.getElementById('cart-total').textContent = '₹' + Math.round(total);
             
             // Add event listeners to quantity buttons
             document.querySelectorAll('.quantity-btn.minus').forEach(button => {
@@ -1056,8 +1056,8 @@
             showPage('cart-page');
         });
         
-        // Back button functionality
-        document.getElementById('back-btn').addEventListener('click', function() {
+        // Back button functionality - FIXED: Use unique IDs
+        document.getElementById('back-btn-mens').addEventListener('click', function() {
             showPage('home-page');
         });
         
